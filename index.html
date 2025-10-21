@@ -49,10 +49,39 @@
         }
         
         .authors {
-            font-size: 1.1em;
-            color: #6c757d;
-            margin: 15px 0;
-        }
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px 16px;
+    margin: 15px 0 0;
+    padding: 0 4px;
+    color: #343a40;
+    font-size: 1rem;
+}
+
+.author-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    background: #f1f3f5;
+    border: 1px solid #e9ecef;
+    border-radius: 999px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+
+.author-name { font-weight: 600; color: #1a1a1a; }
+.author-affil { color: #6c757d; font-size: 0.95em; }
+.author-email a {
+    color: #495057;
+    text-decoration: none;
+    border-bottom: 1px dashed #ced4da;
+}
+.author-email a:hover {
+    color: #1a1a1a;
+    border-bottom-color: #adb5bd;
+}
+
         
         .venue {
             font-style: italic;
@@ -119,13 +148,22 @@
         }
         
         .figure-image {
-            width: 100%;
-            max-width: 1000px;
-            margin: 30px auto;
-            display: block;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
+    width: 60%;
+    max-width: 60%;
+    margin: 30px auto;
+    display: block;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Optional: full width on phones */
+@media (max-width: 768px) {
+    .figure-image {
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
         
         .method-list {
             list-style: none;
@@ -243,18 +281,34 @@
         <header>
             <h1>Decoupling Planning and Control for Instructable Agents</h1>
             <p class="subtitle">Speak-to-Act</p>
-            <p class="authors">
-  <strong>Zineng Tang</strong> — University of California, Berkeley —
-  <a href="mailto:terran@berkeley.edu">terran@berkeley.edu</a><br>
-  <strong>Kelsey R. Allen</strong> — Vector Institute <em>(Work done at Google DeepMind)</em> —
-  <a href="mailto:kelsey.allen@vectorinstitute.ai">kelsey.allen@vectorinstitute.ai</a><br>
-  <strong>Sjoerd van Steenkiste</strong> — Google DeepMind —
-  <a href="mailto:svansteenkiste@google.com">svansteenkiste@google.com</a><br>
-  <strong>Ishita Dasgupta</strong> — Google DeepMind —
-  <a href="mailto:idg@google.com">idg@google.com</a><br>
-  <strong>Alane Suhr</strong> — University of California, Berkeley —
-  <a href="mailto:suhr@berkeley.edu">suhr@berkeley.edu</a>
-</p>
+            <div class="authors" role="list">
+  <div class="author-item" role="listitem">
+    <span class="author-name">Zineng Tang</span>
+    <span class="author-affil">UC Berkeley</span>
+    <span class="author-email"><a href="mailto:terran@berkeley.edu">terran@berkeley.edu</a></span>
+  </div>
+  <div class="author-item" role="listitem">
+    <span class="author-name">Kelsey R. Allen</span>
+    <span class="author-affil">Vector Institute <em>(Work done at Google DeepMind)</em></span>
+    <span class="author-email"><a href="mailto:kelsey.allen@vectorinstitute.ai">kelsey.allen@vectorinstitute.ai</a></span>
+  </div>
+  <div class="author-item" role="listitem">
+    <span class="author-name">Sjoerd van Steenkiste</span>
+    <span class="author-affil">Google DeepMind</span>
+    <span class="author-email"><a href="mailto:svansteenkiste@google.com">svansteenkiste@google.com</a></span>
+  </div>
+  <div class="author-item" role="listitem">
+    <span class="author-name">Ishita Dasgupta</span>
+    <span class="author-affil">Google DeepMind</span>
+    <span class="author-email"><a href="mailto:idg@google.com">idg@google.com</a></span>
+  </div>
+  <div class="author-item" role="listitem">
+    <span class="author-name">Alane Suhr</span>
+    <span class="author-affil">UC Berkeley</span>
+    <span class="author-email"><a href="mailto:suhr@berkeley.edu">suhr@berkeley.edu</a></span>
+  </div>
+</div>
+
             <div class="links">
                 <a href="#" class="link-button">
                     <span>📄</span> Paper (arXiv)
