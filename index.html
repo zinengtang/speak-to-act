@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speak-to-Act: Decoupling Planning and Control for Instructable Agents</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 0 30px;
+            border-bottom: 2px solid #e9ecef;
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+        
+        .subtitle {
+            font-size: 1.3em;
+            color: #495057;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+        
+        .authors {
+            font-size: 1.1em;
+            color: #6c757d;
+            margin: 15px 0;
+        }
+        
+        .venue {
+            font-style: italic;
+            color: #868e96;
+            margin: 10px 0;
+        }
+        
+        .links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 25px;
+        }
+        
+        .link-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+        
+        .link-button:hover {
+            background: #0056b3;
+        }
+        
+        .link-button.secondary {
+            background: #6c757d;
+        }
+        
+        .link-button.secondary:hover {
+            background: #545b62;
+        }
+        
+        section {
+            margin-bottom: 50px;
+        }
+        
+        h2 {
+            font-size: 2em;
+            color: #1a1a1a;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e9ecef;
+        }
+        
+        h3 {
+            font-size: 1.4em;
+            color: #343a40;
+            margin: 25px 0 15px;
+        }
+        
+        .abstract {
+            font-size: 1.05em;
+            line-height: 1.8;
+            text-align: justify;
+            color: #495057;
+        }
+        
+        .figure-placeholder {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+            border-radius: 8px;
+            margin: 30px 0;
+            font-size: 1.2em;
+        }
+        
+        .method-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .method-list li {
+            padding: 15px 0;
+            padding-left: 30px;
+            position: relative;
+            line-height: 1.7;
+        }
+        
+        .method-list li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #007bff;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            font-size: 0.95em;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #dee2e6;
+        }
+        
+        th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #495057;
+        }
+        
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .highlight-row {
+            background: #e7f3ff !important;
+            font-weight: 600;
+        }
+        
+        .contribution-box {
+            background: #f8f9fa;
+            border-left: 4px solid #007bff;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .contribution-box ul {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+        
+        .contribution-box li {
+            margin: 8px 0;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #868e96;
+            border-top: 2px solid #e9ecef;
+            margin-top: 60px;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            .subtitle {
+                font-size: 1.1em;
+            }
+            
+            .links {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            table {
+                font-size: 0.85em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Decoupling Planning and Control for Instructable Agents</h1>
+            <p class="subtitle">Speak-to-Act</p>
+            <p class="authors">Anonymous authors</p>
+            <p class="venue">Under review as a conference paper at ICLR 2026</p>
+            
+            <div class="links">
+                <a href="#" class="link-button">
+                    <span>📄</span> Paper (arXiv)
+                </a>
+                <a href="#" class="link-button">
+                    <span>💻</span> Code (GitHub)
+                </a>
+                <a href="#" class="link-button secondary">
+                    <span>🎮</span> Demo
+                </a>
+            </div>
+        </header>
+
+        <section id="abstract">
+            <h2>Abstract</h2>
+            <p class="abstract">
+                Recent work on vision-language(-action) agents shows that VLMs are strong at high-level reasoning but struggle to realize plans as reliable low-latency action sequences, while world-model controllers excel at fast observation-to-action control but lack open-ended task guidance. In this work, we combine these strengths by conditioning a learned world-model controller on language so that it can act autonomously at high frequency conditioned on sparse, higher-latency textual instructions generated by vision-language models (VLMs). Our system, <strong>Speak-to-Act</strong>, includes an instructable controller that autoregressively generates high-frequency actions and can either follow language instructions from an instruction agent, or self-operate in a high-throughput environment.
+            </p>
+            <br>
+            <p class="abstract">
+                To train controllers to be language-instructable, we relabel segments of controller policy rollouts with instructions and optimize a behavior-cloning objective. Our framework easily supports extension to multi-agent settings that enable agent communication between VLMs using trained controllers as actuators without relying on Multi-Agent Reinforcement Learning algorithms. We report results on various embodied environments and tasks, scaling trends with larger controllers and VLMs, and ablations on instruction cadence, planning frequency, and online vs. offline planning latency. The results show that with our decoupled architecture, Speak-to-Act can flexibly switch to different VLMs and scale well to multi-agents and longer chains of reasoning achieving state-of-the-art performance on six tasks.
+            </p>
+        </section>
+
+        <section id="method">
+            <h2>Method Overview</h2>
+            
+            <div class="figure-placeholder">
+                📊 System Architecture Diagram
+                <br><small>(VLM Planner → Controller Pipeline)</small>
+            </div>
+
+            <h3>Key Approach</h3>
+            <ul class="method-list">
+                <li><strong>Decoupled Architecture:</strong> Separate high-level planning (VLM) from low-level control (trained world model), enabling real-time execution with sophisticated reasoning</li>
+                
+                <li><strong>Language-Conditioned Controller:</strong> Train environment-specific controllers based on Dreamer (world-model RL) that can follow natural language instructions</li>
+                
+                <li><strong>Post-hoc Instruction Supervision:</strong> Automatically annotate replay buffer segments with language descriptions using VLMs, enabling behavior cloning without manual labeling</li>
+                
+                <li><strong>Asynchronous Online Planning:</strong> VLM planners continuously reason in the background while controllers execute actions, dramatically reducing latency</li>
+                
+                <li><strong>Multi-Agent Extension:</strong> Scale to multiple agents with parameter-shared controllers and language-based coordination, no specialized MARL algorithms needed</li>
+            </ul>
+
+            <div class="contribution-box">
+                <h3>Main Contributions</h3>
+                <ul>
+                    <li>Formulate instructable, real-time control as language-conditioned world-model RL with autonomous base policy</li>
+                    <li>Propose post-hoc language annotation pipeline that densifies instruction labels without interrupting training</li>
+                    <li>Extend to multi-agent cooperation via shared controllers and language-level coordination</li>
+                    <li>Comprehensive scaling study on controller capacity, planner capacity, planning cadence, and efficiency</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="results">
+            <h2>Results</h2>
+            
+            <h3>Main Performance Comparison</h3>
+            <p>State-of-the-art performance across 6 out of 7 tasks, significantly outperforming end-to-end VLM agents and specialized baselines.</p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th rowspan="2">Method</th>
+                        <th colspan="4">Single-Agent Tasks</th>
+                        <th colspan="3">Multi-Agent Tasks</th>
+                    </tr>
+                    <tr>
+                        <th>Atari</th>
+                        <th>Diamond</th>
+                        <th>Crafter</th>
+                        <th>DMLab</th>
+                        <th>Overcooked</th>
+                        <th>PicoPark</th>
+                        <th>Mindcraft</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="8" style="background: #e9ecef; font-weight: bold; text-align: left;">VLMs with Speak-to-Act</td>
+                    </tr>
+                    <tr>
+                        <td>Gemma-3-27B</td>
+                        <td>880</td>
+                        <td>9.7</td>
+                        <td>13.8</td>
+                        <td>71</td>
+                        <td>187.4</td>
+                        <td>68.9</td>
+                        <td>53.0</td>
+                    </tr>
+                    <tr>
+                        <td>LLaVA-v1.6-34B</td>
+                        <td>862</td>
+                        <td>9.9</td>
+                        <td>12.8</td>
+                        <td>74</td>
+                        <td>187.2</td>
+                        <td>63.5</td>
+                        <td>51.6</td>
+                    </tr>
+                    <tr>
+                        <td>Qwen-VL-2.5-72B</td>
+                        <td>878</td>
+                        <td>11.1</td>
+                        <td>13.4</td>
+                        <td>77</td>
+                        <td>192.3</td>
+                        <td>68.4</td>
+                        <td>58.5</td>
+                    </tr>
+                    <tr class="highlight-row">
+                        <td>GPT-4o</td>
+                        <td>891</td>
+                        <td>11.7</td>
+                        <td>14.1</td>
+                        <td>76</td>
+                        <td>193.2</td>
+                        <td>70.1</td>
+                        <td>70.2</td>
+                    </tr>
+                    <tr>
+                        <td colspan="8" style="background: #e9ecef; font-weight: bold; text-align: left;">Baselines</td>
+                    </tr>
+                    <tr>
+                        <td>GPT-4o (w/o controller)</td>
+                        <td>670</td>
+                        <td>10.4</td>
+                        <td>8.7</td>
+                        <td>56</td>
+                        <td>180.4</td>
+                        <td>50.3</td>
+                        <td>50.2</td>
+                    </tr>
+                    <tr>
+                        <td>Controller-Only</td>
+                        <td>809</td>
+                        <td>8.2</td>
+                        <td>12.6</td>
+                        <td>67</td>
+                        <td>170.2</td>
+                        <td>30.7</td>
+                        <td>40.0</td>
+                    </tr>
+                    <tr>
+                        <td colspan="8" style="background: #e9ecef; font-weight: bold; text-align: left;">Previous SOTA</td>
+                    </tr>
+                    <tr>
+                        <td>DreamerV3</td>
+                        <td>811</td>
+                        <td>8.6</td>
+                        <td>10.5</td>
+                        <td>65</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>Voyager</td>
+                        <td>-</td>
+                        <td>11.8</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>MARL Baseline</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>182.5</td>
+                        <td>50.8</td>
+                        <td>44.9</td>
+                    </tr>
+                    <tr>
+                        <td>Mindcraft (Claude)</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>49.0</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="figure-placeholder">
+                📈 Scaling Experiments
+                <br><small>(Multi-agent scaling, Planning modes, Model size scaling, Reasoning density)</small>
+            </div>
+          
+        </section>
+
+        <footer>
+            <p>Paper under review at ICLR 2026</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">© 2026 Anonymous Authors</p>
+        </footer>
+    </div>
+</body>
+</html>
