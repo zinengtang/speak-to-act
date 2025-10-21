@@ -73,7 +73,7 @@
             align-items: center;
             gap: 8px;
             padding: 12px 24px;
-            background: #007bff;
+            background: #495057;
             color: white;
             text-decoration: none;
             border-radius: 6px;
@@ -82,7 +82,7 @@
         }
         
         .link-button:hover {
-            background: #0056b3;
+            background: #343a40;
         }
         
         .link-button.secondary {
@@ -118,14 +118,13 @@
             color: #495057;
         }
         
-        .figure-placeholder {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 80px 20px;
-            text-align: center;
+        .figure-image {
+            width: 100%;
+            max-width: 1000px;
+            margin: 30px auto;
+            display: block;
             border-radius: 8px;
-            margin: 30px 0;
-            font-size: 1.2em;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
         
         .method-list {
@@ -144,7 +143,7 @@
             content: "→";
             position: absolute;
             left: 0;
-            color: #007bff;
+            color: #495057;
             font-weight: bold;
             font-size: 1.2em;
         }
@@ -157,7 +156,7 @@
         }
         
         th, td {
-            padding: 12px;
+            padding: 8px;
             text-align: center;
             border: 1px solid #dee2e6;
         }
@@ -173,13 +172,13 @@
         }
         
         .highlight-row {
-            background: #e7f3ff !important;
+            background: #e9ecef !important;
             font-weight: 600;
         }
         
         .contribution-box {
             background: #f8f9fa;
-            border-left: 4px solid #007bff;
+            border-left: 4px solid #495057;
             padding: 20px;
             margin: 20px 0;
             border-radius: 4px;
@@ -192,6 +191,23 @@
         
         .contribution-box li {
             margin: 8px 0;
+        }
+        
+        .citation-box {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            overflow-x: auto;
+        }
+        
+        .citation-box pre {
+            margin: 0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
         }
         
         footer {
@@ -257,10 +273,7 @@
         <section id="method">
             <h2>Method Overview</h2>
             
-            <div class="figure-placeholder">
-                📊 System Architecture Diagram
-                <br><small>(VLM Planner → Controller Pipeline)</small>
-            </div>
+            <img src="assets/main_figure_tmp.png" alt="Speak-to-Act System Architecture" class="figure-image">
 
             <h3>Key Approach</h3>
             <ul class="method-list">
@@ -421,18 +434,21 @@
                     </tr>
                 </tbody>
             </table>
-
-            <div class="figure-placeholder">
-                📈 Scaling Experiments
-                <br><small>(Multi-agent scaling, Planning modes, Model size scaling, Reasoning density)</small>
-            </div>
           
         </section>
 
-        <footer>
-            <p>Paper under review at ICLR 2026</p>
-            <p style="margin-top: 10px; font-size: 0.9em;">© 2026 Anonymous Authors</p>
-        </footer>
+        <section id="citation">
+            <h2>Citation</h2>
+            <p>If you find this work useful, please consider citing:</p>
+            <div class="citation-box">
+                <pre>@article{tang2025decoupling,
+  title={Decoupling Planning and Control for Instructable Agents},
+  author={Tang, Zineng and Allen, Kelsey R and van Steenkiste, Sjoerd and Dasgupta, Ishita and Suhr, Alane},
+  journal={arXiv preprint arXiv:},
+  year={2025},
+}</pre>
+            </div>
+        </section>
     </div>
 </body>
 </html>
